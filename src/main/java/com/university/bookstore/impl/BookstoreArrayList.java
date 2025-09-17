@@ -21,7 +21,9 @@ public class BookstoreArrayList {
         this.inventory = new ArrayList();
 
         if (var1 != null) {
+                for (Book book : var1) {
 
+                }
         }
     }
 

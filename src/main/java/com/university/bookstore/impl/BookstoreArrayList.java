@@ -1,164 +1,242 @@
-package com.university.bookstore.model;
+package com.university.bookstore.impl;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullSource;
-import org.junit.jupiter.params.provider.ValueSource;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
-import java.util.Objects;
-
-import static org.junit.jupiter.api.Assertions.*;
+import com.university.bookstore.model.Book;
 
 /**
- * Unit tests for the Book class.
+ * ArrayList-based implementation of a bookstore.
+ * Stores Book objects in a list and enforces unique ISBNs.
  */
-class BookTest {
+public class BookstoreArrayList {
 
-    private Book validBook;
-    private final String VALID_ISBN_13 = "9781234567897";
-    private final String VALID_ISBN_10 = "1234567890";
+    private final List<Book> inventory;
 
     /**
-     * Sets up a valid Book instance before each test.
+     * Default constructor creates empty inventory.
      */
-    @BeforeEach
-    void setUp() {
-        validBook = new Book(VALID_ISBN_13, "Clean Code", "Robert Martin", 50.0, 2008);
+    public BookstoreArrayList() {
+        this.inventory = new ArrayList<>();
     }
 
-    @Test
-    void testValidBookCreation() {
-        assertNotNull(validBook);
-        assertEquals(VALID_ISBN_13, validBook.getIsbn());
-        assertEquals("Clean Code", validBook.getTitle());
-        assertEquals("Robert Martin", validBook.getAuthor());
-        assertEquals(50.0, validBook.getPrice());
-        assertEquals(2008, validBook.getYear());
-    }
-
-    @Test
-    void testIsbn10Format() {
-        Book book10 = new Book(VALID_ISBN_10, "Effective Java", "Joshua Bloch", 45.0, 2005);
-        assertEquals(VALID_ISBN_10, book10.getIsbn());
-    }
-
-    @Test
-    void testIsbnCleaning() {
-        Book book = new Book("978-1-234-56789-7", "Title", "Author", 20.0, 2020);
-        assertEquals("9781234567897", book.getIsbn());
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @ValueSource(strings = {"", "   "})
-    void testInvalidIsbn(String isbn) {
-        assertThrows(IllegalArgumentException.class, () -> new Book(isbn, "Title", "Author", 10.0, 2020));
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @ValueSource(strings = {"", "   "})
-    void testInvalidTitle(String title) {
-        assertThrows(IllegalArgumentException.class, () -> new Book("1234567890", title, "Author", 10.0, 2020));
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @ValueSource(strings = {"", "   "})
-    void testInvalidAuthor(String author) {
-        assertThrows(IllegalArgumentException.class, () -> new Book("1234567890", "Title", author, 10.0, 2020));
-    }
-
-    @ParameterizedTest
-    @ValueSource(doubles = {-1.0, -50.0})
-    void testNegativePrice(double price) {
-        assertThrows(IllegalArgumentException.class, () -> new Book("1234567890", "Title", "Author", price, 2020));
-    }
-
-    @Test
-    void testInvalidPriceValues() {
-        assertThrows(IllegalArgumentException.class, () -> new Book("1234567890", "Title", "Author", -0.01, 2020));
-    }
-
-    @Test
-    void testZeroPrice() {
-        Book freeBook = new Book("1234567890", "Free Book", "Author", 0.0, 2020);
-        assertEquals(0.0, freeBook.getPrice());
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {0, 1400})
-    void testYearTooEarly(int year) {
-        assertThrows(IllegalArgumentException.class, () -> new Book("1234567890", "Title", "Author", 10.0, year));
-    }
-
-    @Test
-    void testYearTooLate() {
-        int futureYear = 2100;
-        assertThrows(IllegalArgumentException.class, () -> new Book("1234567890", "Title", "Author", 10.0, futureYear));
-    }
-
-    @Test
-    void testValidYearRange() {
-        Book book = new Book("1234567890", "Title", "Author", 10.0, 2000);
-        assertEquals(2000, book.getYear());
-    }
-
-    @Test
-    void testEquals() {
-        Book book2 = new Book(VALID_ISBN_13, "Clean Code", "Robert Martin", 50.0, 2008);
-        assertEquals(validBook, book2);
-        assertNotEquals(validBook, new Book("9999999999999", "Other", "Author", 10.0, 2010));
-    }
-
-    @Test
-    void testHashCode() {
-        Book book2 = new Book(VALID_ISBN_13, "Clean Code", "Robert Martin", 50.0, 2008);
-        assertEquals(validBook.hashCode(), book2.hashCode());
-    }
-
-    @Test
-    void testCompareTo() {
-        Book newer = new Book("9781234567800", "Clean Architecture", "Robert Martin", 60.0, 2017);
-        assertTrue(validBook.compareTo(newer) < 0);
-    }
-
-    @Test
-    void testCompareToNull() {
-        assertThrows(NullPointerException.class, () -> validBook.compareTo(null));
-    }
-
-    @Test
-    void testToString() {
-        String s = validBook.toString();
-        assertTrue(s.contains("Clean Code"));
-        assertTrue(s.contains("Robert Martin"));
-    }
-
-    @Test
-    void testImmutability() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            // assuming Book has a method returning modifiable collection, if not, skip
-            // validBook.getTags().add("newTag");
-        });
-    }
-
-    @Test
-    void testStringTrimming() {
-        Book book = new Book(" 1234567890 ", "  Title  ", "  Author  ", 10.0, 2020);
-        assertEquals("1234567890", book.getIsbn());
-        assertEquals("Title", book.getTitle());
-        assertEquals("Author", book.getAuthor());
-    }
-
-    @Test
-    void testCreationPerformance() {
-        long start = System.currentTimeMillis();
-        for (int i = 0; i < 10000; i++) {
-            new Book("1234567890" + i, "Title", "Author", 10.0, 2020);
+    /**
+     * Constructor with initial collection of books.
+     *
+     * @param books initial books to add
+     */
+    public BookstoreArrayList(Collection<Book> books) {
+        this.inventory = new ArrayList<>();
+        if (books != null) {
+            for (Book book : books) {
+                add(book);
+            }
         }
-        long duration = System.currentTimeMillis() - start;
-        assertTrue(duration < 1000, "Book creation too slow");
+    }
+
+    /**
+     * Adds a book to inventory if ISBN is unique.
+     *
+     * @param book Book to add
+     * @return true if added, false if null or duplicate ISBN
+     */
+    public boolean add(Book book) {
+        if (book == null || findByIsbn(book.getIsbn()) != null) return false;
+        return inventory.add(book);
+    }
+
+    /**
+     * Removes a book by ISBN.
+     *
+     * @param isbn ISBN of book to remove
+     * @return true if removed, false if not found
+     */
+    public boolean removeByIsbn(String isbn) {
+        return inventory.removeIf(book -> book.getIsbn().equals(isbn));
+    }
+
+    /**
+     * Finds a book by ISBN.
+     *
+     * @param isbn ISBN to search
+     * @return matching Book or null
+     */
+    public Book findByIsbn(String isbn) {
+        for (Book book : inventory) {
+            if (book.getIsbn().equals(isbn)) return book;
+        }
+        return null;
+    }
+
+    /**
+     * Finds books containing title substring.
+     *
+     * @param title query
+     * @return list of matching books
+     */
+    public List<Book> findByTitle(String title) {
+        if (title == null) return Collections.emptyList();
+        String query = title.toLowerCase();
+        return inventory.stream()
+                .filter(book -> book.getTitle().toLowerCase().contains(query))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Finds books containing author substring.
+     *
+     * @param author query
+     * @return list of matching books
+     */
+    public List<Book> findByAuthor(String author) {
+        if (author == null) return Collections.emptyList();
+        String query = author.toLowerCase();
+        return inventory.stream()
+                .filter(book -> book.getAuthor().toLowerCase().contains(query))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Finds books within price range.
+     *
+     * @param min minimum price
+     * @param max maximum price
+     * @return list of matching books
+     */
+    public List<Book> findByPriceRange(double min, double max) {
+        if (min > max) throw new IllegalArgumentException("Invalid price range");
+        return inventory.stream()
+                .filter(book -> book.getPrice() >= min && book.getPrice() <= max)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Finds books published in a given year.
+     *
+     * @param year year
+     * @return list of matching books
+     */
+    public List<Book> findByYear(int year) {
+        return inventory.stream()
+                .filter(book -> book.getYear() == year)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns number of books.
+     *
+     * @return inventory size
+     */
+    public int size() {
+        return inventory.size();
+    }
+
+    /**
+     * Returns total value of inventory.
+     *
+     * @return sum of prices
+     */
+    public double inventoryValue() {
+        return inventory.stream().mapToDouble(Book::getPrice).sum();
+    }
+
+    /**
+     * Returns the most expensive book.
+     *
+     * @return book with highest price
+     */
+    public Book getMostExpensive() {
+        return inventory.stream()
+                .max(Comparator.comparingDouble(Book::getPrice))
+                .orElse(null);
+    }
+
+    /**
+     * Returns the most recent book.
+     *
+     * @return book with latest year
+     */
+    public Book getMostRecent() {
+        return inventory.stream()
+                .max(Comparator.comparingInt(Book::getYear))
+                .orElse(null);
+    }
+
+    /**
+     * Returns snapshot of inventory as array.
+     *
+     * @return array of books
+     */
+    public Book[] snapshotArray() {
+        return inventory.toArray(new Book[0]);
+    }
+
+    /**
+     * Returns copy of all books.
+     *
+     * @return list of books
+     */
+    public List<Book> getAllBooks() {
+        return new ArrayList<>(inventory);
+    }
+
+    /**
+     * Clears the inventory.
+     */
+    public void clear() {
+        inventory.clear();
+    }
+
+    /**
+     * Sorts inventory by title.
+     */
+    public void sortByTitle() {
+        Collections.sort(inventory);
+    }
+
+    /**
+     * Sorts inventory by price ascending.
+     */
+    public void sortByPrice() {
+        inventory.sort(Comparator.comparingDouble(Book::getPrice));
+    }
+
+    /**
+     * Sorts inventory by year ascending.
+     */
+    public void sortByYear() {
+        inventory.sort(Comparator.comparingInt(Book::getYear));
+    }
+
+    /**
+     * Returns statistics about inventory.
+     *
+     * @return map with size, total_value, average_price, min_year, max_year, unique_authors
+     */
+    public Map<String, Object> getStatistics() {
+        Map<String, Object> stats = new HashMap<>();
+        stats.put("size", size());
+        stats.put("total_value", inventoryValue());
+        stats.put("average_price", size() == 0 ? 0 : inventoryValue() / size());
+        stats.put("min_year", inventory.stream().mapToInt(Book::getYear).min().orElse(0));
+        stats.put("max_year", inventory.stream().mapToInt(Book::getYear).max().orElse(0));
+        stats.put("unique_authors", inventory.stream().map(Book::getAuthor).distinct().count());
+        return stats;
+    }
+
+    /**
+     * String summary of inventory.
+     *
+     * @return formatted string
+     */
+    @Override
+    public String toString() {
+        return String.format("BookstoreArrayList[size=%d, value=%.2f]", size(), inventoryValue());
     }
 }

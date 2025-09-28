@@ -3,9 +3,18 @@
 // (powered by FernFlower decompiler)
 //
 
-package src.main.java.com.university.bookstore.utils;
 
+
+package com.university.bookstore.utils;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import com.university.bookstore.model.Book;
+import java.util.*;
 
 public final class BookArrayUtils {
     private BookArrayUtils() {
@@ -18,7 +27,7 @@ public final class BookArrayUtils {
         int count = 0;
 
         for (Book var2 : var0) {
-            if (var2 != null && var.getYear() < var1) {
+            if (var2 != null && var2.getYear() < var1) {
                 count++;
             }
         }
@@ -34,7 +43,7 @@ public final class BookArrayUtils {
 
         int count = 0;
         for (Book var2 : var0) {
-            if (var2 != null && var.getAuthor().equalsIgnoreCase(author)) {
+            if (var2 != null && var2.getAuthor().equalsIgnoreCase(var1)) {
                 count++;
             }
         }
@@ -43,7 +52,7 @@ public final class BookArrayUtils {
     }
 
     public static Book[] filterPriceAtMost(Book[] var0, double var1) {
-        if (maxPrice < 0) {
+        if (var1 < 0) {
             throw new IllegalArgumentException("maxPrice cannot be negative");
         }
 
@@ -60,7 +69,7 @@ public final class BookArrayUtils {
         }
 
         Book[] filteredList = new Book[count];
-        hold = 0;
+        int hold = 0;
 
         for (Book var3 : var0) {
             if (var3 != null && var3.getPrice() <= var1) {
@@ -85,7 +94,7 @@ public final class BookArrayUtils {
         }
 
         Book[] filteredList = new Book[count];
-        hold = 0;
+        int hold = 0;
 
         for (Book var3 : var0) {
             if (var3 != null && var3.getYear() >= var1 && var3.getYear() <= finalYear) {
@@ -93,10 +102,12 @@ public final class BookArrayUtils {
                 hold++;
             }
         }
+
+        return filteredList;
     }
 
     public static void sortByPrice(Book[] var0) {
-        if (books == null || books.length <= 1) {
+        if (var0 == null || var0.length <= 1) {
             return;
         }
 
@@ -109,7 +120,7 @@ public final class BookArrayUtils {
     }
 
     public static void sortByYear(Book[] var0) {
-        if (books == null || books.length <= 1) {
+        if (var0 == null || var0.length <= 1) {
             return;
         }
 
@@ -128,8 +139,8 @@ public final class BookArrayUtils {
         int count = 0;
 
         for (Book var2 : var0) {
-            if (book != null) {
-                sum += book.getPrice();
+            if (var2 != null) {
+                sum += var2.getPrice();
                 count++;
             }
         }
@@ -143,11 +154,13 @@ public final class BookArrayUtils {
         Book oldestAge = null;
         for (Book var2 : var0) {
             if (var2 != null) {
-                if (oldestAge == null || var2.getYear < oldestAge.getYear()) {
+                if (oldestAge == null || var2.getYear() < oldestAge.getYear()) {
                     oldestAge = var2;
                 }
             }
         }
+
+        return oldestAge;
        }
 
     public static Book[] merge(Book[] var0, Book[] var1) {
@@ -166,19 +179,62 @@ public final class BookArrayUtils {
     }
 
     public static Book[] removeDuplicates(Book[] var0) {
-        throw new Error("Unresolved compilation problems: \n\tBook cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tSet cannot be resolved to a type\n\tString cannot be resolved to a type\n\tHashSet cannot be resolved to a type\n\tList cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tArrayList cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tBook cannot be resolved to a type\n");
+        if (var0 == null) return new Book[0];
+
+        Set<String> isbns = new HashSet<String>();
+        List<Book> newBooks = new ArrayList<Book>();
+
+        for (Book var1 : var0) {
+            if (var1 != null && isbns.add(var1.getISBN())) {
+                newBooks.add(var1);
+            }
+        }
+        return newBooks.toArray(new Book[0]);
+
     }
 
-    public static Book[] filterByYearRange(Book[] var0, int var1, int var2) {
-        throw new Error("Unresolved compilation problems: \n\tBook cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tStream cannot be resolved\n\tBook cannot be resolved to a type\n");
+
+    public static Book[] filterByYearRange(Book[] var0, int start, int end) {
+        if (var0 == null) return new Book[0];
+        if (start > end) return new Book[0];
+        List<Book> newBooks = new ArrayList<Book>();
+
+        for (Book var1 : var0) {
+            if (var1 != null && var1.getYear() >= start && var1.getYear() <= end) {
+                newBooks.add(var1);
+            }
+        }
+        return newBooks.toArray(new Book[0]);
     }
 
     public static Map<Integer, Integer> countByDecade(Book[] var0) {
-        throw new Error("Unresolved compilation problems: \n\tMap cannot be resolved to a type\n\tInteger cannot be resolved to a type\n\tInteger cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tMap cannot be resolved to a type\n\tInteger cannot be resolved to a type\n\tInteger cannot be resolved to a type\n\tTreeMap cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tInteger cannot be resolved\n");
-    }
+        Map<Integer, Integer> decade = new HashMap<Integer, Integer>();
+
+        if (var0 != null) {
+            for (Book var1 : var0) {
+                if (var1 != null) {
+                    int yearHold = (var1.getYear()/10) * 10;
+                    decade.merge(yearHold, 1, Integer::sum);
+                }
+            }
+        }
+
+        return decade;
+        }
 
     public static Book findLongestTitle(Book[] var0) {
-        throw new Error("Unresolved compilation problems: \n\tBook cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tBook cannot be resolved to a type\n");
+        if (var0 == null) return null;
+
+        Book longestTitle = null;
+        int longestLength = 0;
+
+        for (Book var1 : var0) {
+            if (var1 != null && var1.getTitle().length() > longestLength) {
+                longestTitle = var1;
+                longestLength = var1.getTitle().length();
+            }
+        }
+        return longestTitle;
     }
 }
 

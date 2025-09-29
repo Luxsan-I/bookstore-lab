@@ -92,4 +92,25 @@ Books use ISBN to check each book's uniqueness, which makes sure that each Book 
 
 ## Testing Strategy
 
+
+### Coverage Statistics
+- **Overall Coverage**: 97% (exceeds 85% target)
+- **Book Class**: 100% coverage (33 tests)
+- **BookstoreArrayList**: 97% coverage (33 tests)
+- **BookArrayUtils**: 97% coverage (29 tests)
+
+### Test Categories
+1. **Validation Tests**: All input validation rules
+2. **Boundary Tests**: Empty collections, single elements, nulls
+3. **Contract Tests**: equals/hashCode consistency, Comparable
+4. **Performance Tests**: Large dataset handling (1000+
+
 ## Reflection Answers
+
+### 1. Array vs ArrayList: When to Use Each?
+
+**If users wants to make things convennient, they can user the arraylist. However, users are recommonded to use the array when they need to spent more cpu and mermory. Array elements are saved continously so it is easier to search through the mermory, arraylist elements requires more bytes.**
+
+### 2. Amortized O(1) Analysis of ArrayList.add()
+**When the arraylist is not full, just add the new element to the end, the time complexity becames O(1). If it is full, need to move the entire old array list to the new array list, it becomes O(n), but under most cases it is O(1). Averagely speaking, the cost per element is O(1).**
+

@@ -2,12 +2,10 @@ package com.university.bookstore.utils;
 
 import com.university.bookstore.model.Book;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
 import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+
 
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -19,11 +17,12 @@ class BookArrayUtilsTest {
 
     @BeforeEach
     void setUp() {
-        book1 = new Book("Effective Java", "Joshua Bloch", 2018, 69.99, "9780134685991");
-        book2 = new Book("Head First Java", "Kathy Sierra", 2005, 39.99, "9780596009205");
-        book3 = new Book("Clean Code", "Robert Martin", 2008, 49.99, "9780132350884");
-        book4 = new Book("Design Patterns", "Gang of Four", 1994, 59.99, "9780201633610");
-        book5 = new Book("Clean Architecture", "Robert Martin", 2017, 44.99, "9780134494166");
+        book1 = new Book("9780134685991", "Effective Java", "Joshua Bloch", 69.99, 2018);
+        book2 = new Book("9780596009205", "Head First Java", "Kathy Sierra", 39.99, 2005);
+        book3 = new Book("9780132350884", "Clean Code", "Robert Martin", 49.99, 2008);
+        book4 = new Book("9780201633610", "Design Patterns", "Gang of Four", 59.99, 1994);
+        book5 = new Book("9780134494166", "Clean Architecture", "Robert Martin", 44.99, 2017);
+
 
 
         books = new Book[]{book1, book2, book3, book4, book5};
@@ -259,7 +258,7 @@ class BookArrayUtilsTest {
     @Order(20)
     @DisplayName("Should remove duplicates based on ISBN")
     void testRemoveDuplicates() {
-        Book duplicate = new Book("Different Title","Different Author",2020,99.99, book1.getISBN());
+        Book duplicate = new Book(book1.getISBN(), "Different Title","Different Author",99.99,2020);
         Book[] withDuplicates = {book1, book2, duplicate, book3, book1};
 
         Book[] unique = BookArrayUtils.removeDuplicates(withDuplicates);

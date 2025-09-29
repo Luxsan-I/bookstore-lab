@@ -3,22 +3,29 @@
 // (powered by FernFlower decompiler)
 //
 
+
+package com.university.bookstore.api;
+
+import com.university.bookstore.model.Book;
+import java.util.List;
+
+
+
+
 public interface BookstoreAPI {
-    static {
-        throw new Error("Unresolved compilation problems: \n\tThe type java.lang.Object cannot be resolved. It is indirectly referenced from required .class files\n\tThe declared package \"com.university.bookstore.api\" does not match the expected package \"src.main.java.com.university.bookstore.api\"\n\tThe import java.util cannot be resolved\n\tThe import com cannot be resolved\n\tBook cannot be resolved to a type\n\tString cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tString cannot be resolved to a type\n\tList cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tString cannot be resolved to a type\n\tList cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tString cannot be resolved to a type\n\tList cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tList cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tBook cannot be resolved to a type\n\tList cannot be resolved to a type\n\tBook cannot be resolved to a type\n");
-    }
+
 
     boolean add(Book book);
 
     boolean removeByIsbn(String isbn);
 
-    Book findByIsbn(String isbn);
+    Book findByISBN(String isbn);
 
-    List<book> findByTitle(String title);
+    List<Book> findByTitle(String title);
 
-    List<book> findByAuthor(String author);
+    List<Book> findByAuthor(String author);
 
-    List<book> findByPriceRange(double priceMin, double priceMax);
+    List<Book> findByPriceRange(double priceMin, double priceMax);
 
     int size();
 

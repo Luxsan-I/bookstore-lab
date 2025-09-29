@@ -20,6 +20,49 @@ This projects create a Bookstore Management System using software engineering pr
 
 ## Build Instructions
 
+### Prerequisites
+- Java 17 or higher
+- Maven 3.6 or higher
+
+### Quick Start
+```bash
+cd bookstore-lab
+./runme.sh
+mvn clean compile
+mvn test
+mvn javadoc:javadoc
+```
+
+### Maven Commands
+```bash
+mvn clean test jacoco:report
+mvn javadoc:javadoc
+mvn package
+mvn test -Dtest=BookTest
+mvn test -X
+```
+
+### Build Script
+The project includes a comprehensive build script (`runme.sh`) that:
+- Validates environment (Java 17+, Maven 3.6+)
+- Compiles source code
+- Runs all 95 tests with JaCoCo coverage
+- Generates Javadoc documentation
+- Creates JAR package
+- Provides detailed status reporting
+
+```bash
+./runme.sh
+./runme.sh --test-only
+./runme.sh --skip-test
+./runme.sh --help
+```
+
+### Coverage Analysis
+- **Target**: 85% coverage (configurable)
+- **Primary Metric**: Instruction coverage (97%)
+- **Fallback**: Custom coverage estimation script
+- **Reports**: HTML, CSV, and XML formats in `target/site/jacoco/`
 
 ## Usage Examples
 

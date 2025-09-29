@@ -11,7 +11,7 @@
 
 ## Project Overview
 
-This projects create a Bookstore Management System using software engineering principles which includes encapsulation, immutability, defensive programming, and thorough testing. This projects provides too ways to mangage asort of books of both Array list and array.
+This projects create a Bookstore Management System using software engineering principles which includes encapsulation, immutability, defensive programming, and thorough testing. This projects provides too ways to mangage a set of books of both Array list and array.
 
 ## Architecture
 ```
@@ -149,12 +149,12 @@ Books use ISBN to check each book's uniqueness, which makes sure that each Book 
 
 ### 1. Array vs ArrayList: When to Use Each?
 
-**If users wants to make things convennient, they can user the arraylist. However, users are recommonded to use the array when they need to spent more cpu and mermory. Array elements are saved continously so it is easier to search through the mermory, arraylist elements requires more bytes.**
+**If users wants to make things convennient, they can user the arraylist. However, users are recommonded to use the array when they need to spent less cpu and mermory. Array elements are saved continously so it is easier to search through the mermory, arraylist elements requires more bytes.**
 
 ### 2. Amortized O(1) Analysis of ArrayList.add()
 **When the arraylist is not full, just add the new element to the end, the time complexity becames O(1). If it is full, need to move the entire old array list to the new array list, it becomes O(n), but under most cases it is O(1). Averagely speaking, the cost per element is O(1).**
 
 ### 3. Defensive Copying Importance
 
-**The defensive copy prevents modifying internal private properties of an objects, maintaining the encapsulation.**
+**The defensive copy prevents modifying internal private properties of an object, maintaining the encapsulation.**
 

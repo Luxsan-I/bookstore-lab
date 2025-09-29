@@ -68,6 +68,14 @@ The project includes a comprehensive build script (`runme.sh`) that:
 
 ## Performance Characteristics
 
+| Operation | ArrayList | Array | Notes |
+|-----------|-----------|-------|-------|
+| Add | O(1)* | O(n) | *Amortized, O(n) for uniqueness check |
+| Remove | O(n) | O(n) | Linear search required |
+| Find by ISBN | O(n) | O(n) | No index structure |
+| Find by Title | O(n) | O(n) | Full scan needed |
+| Get by Index | O(1) | O(1) | Direct access |
+| Size | O(1) | O(1) | Maintained/fixed |
 ## Design Decisions
 
 ## Testing Strategy

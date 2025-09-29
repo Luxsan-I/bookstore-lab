@@ -92,6 +92,41 @@ Books use ISBN to check each book's uniqueness, which makes sure that each Book 
 
 ## Testing Strategy
 
+### Basic Operations
+```java
+// Create bookstore
+BookstoreAPI store = new BookstoreArrayList();
+
+// Add books
+Book effectiveJava = new Book("9780134685991", "Effective Java", 
+                              "Joshua Bloch", 69.99, 2018);
+store.add(effectiveJava);
+
+// Search operations
+Book found = store.findByIsbn("9780134685991");
+List<Book> javaBooks = store.findByTitle("Java");
+List<Book> affordable = store.findByPriceRange(0, 50.00);
+
+// Analytics
+double totalValue = store.inventoryValue();
+Book mostExpensive = store.getMostExpensive();
+```
+
+### Array Utilities
+```java
+Book[] books = store.snapshotArray();
+
+// Filter operations
+Book[] cheapBooks = BookArrayUtils.filterPriceAtMost(books, 30.0);
+Book[] recentBooks = BookArrayUtils.filterByDecade(books, 2020);
+
+// Sorting (in-place)
+BookArrayUtils.sortByPrice(books);
+BookArrayUtils.sortByYear(books);
+
+// Analytics
+double avgPrice = BookArrayUtils.averagePrice(books);
+Book oldest = BookArrayUtils.findOldest(books);
 
 ### Coverage Statistics
 - **Overall Coverage**: 97% (exceeds 85% target)
@@ -113,4 +148,9 @@ Books use ISBN to check each book's uniqueness, which makes sure that each Book 
 
 ### 2. Amortized O(1) Analysis of ArrayList.add()
 **When the arraylist is not full, just add the new element to the end, the time complexity becames O(1). If it is full, need to move the entire old array list to the new array list, it becomes O(n), but under most cases it is O(1). Averagely speaking, the cost per element is O(1).**
+
+### 3. Defensive Copying Importance
+
+**Defensive copying:**
+The defensive copy prevents modifying internal private properties of an objects, maintaining the encapsulation.
 

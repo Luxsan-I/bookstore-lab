@@ -7,6 +7,8 @@
 
 221298296, luxsan@my.yorku.ca, Luxsan Indran
 
+221477393, ayanh@my.yorku.ca, Ayan Hasan
+
 ## Project Overview
 
 This projects create a Bookstore Management System using software engineering principles which includes encapsulation, immutability, defensive programming, and thorough testing. This projects provides too ways to mangage asort of books of both Array list and array.

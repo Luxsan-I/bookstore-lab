@@ -68,30 +68,6 @@ The project includes a comprehensive build script (`runme.sh`) that:
 
 ## Usage Examples
 
-## Performance Characteristics
-
-| Operation | ArrayList | Array | Notes |
-|-----------|-----------|-------|-------|
-| Add | O(1)* | O(n) | *Amortized, O(n) for uniqueness check |
-| Remove | O(n) | O(n) | Linear search required |
-| Find by ISBN | O(n) | O(n) | No index structure |
-| Find by Title | O(n) | O(n) | Full scan needed |
-| Get by Index | O(1) | O(1) | Direct access |
-| Size | O(1) | O(1) | Maintained/fixed |
-
-## Design Decisions
-
-### 1. Immutability
-The `Book` class is immutable, it has`final` class, `final` fields, andno setters, which provides thread safety without synchronization and prevention of accidental modification.
-
-### 2. Defensive Programming
-The defensive copies returned from all collection getters, it made sure that the editing will not destroy the original collective.
-
-### 3. ISBN as Identity
-Books use ISBN to check each book's uniqueness, which makes sure that each Book object can found without errors.
-
-## Testing Strategy
-
 ### Basic Operations
 ```java
 // Create bookstore
@@ -127,6 +103,48 @@ BookArrayUtils.sortByYear(books);
 // Analytics
 double avgPrice = BookArrayUtils.averagePrice(books);
 Book oldest = BookArrayUtils.findOldest(books);
+```
+
+## Performance Characteristics
+
+| Operation | ArrayList | Array | Notes |
+|-----------|-----------|-------|-------|
+| Add | O(1)* | O(n) | *Amortized, O(n) for uniqueness check |
+| Remove | O(n) | O(n) | Linear search required |
+| Find by ISBN | O(n) | O(n) | No index structure |
+| Find by Title | O(n) | O(n) | Full scan needed |
+| Get by Index | O(1) | O(1) | Direct access |
+| Size | O(1) | O(1) | Maintained/fixed |
+
+## Design Decisions
+
+### Array Utilities
+```java
+Book[] books = store.snapshotArray();
+
+// Filter operations
+Book[] cheapBooks = BookArrayUtils.filterPriceAtMost(books, 30.0);
+Book[] recentBooks = BookArrayUtils.filterByDecade(books, 2020);
+
+// Sorting (in-place)
+BookArrayUtils.sortByPrice(books);
+BookArrayUtils.sortByYear(books);
+
+// Analytics
+double avgPrice = BookArrayUtils.averagePrice(books);
+Book oldest = BookArrayUtils.findOldest(books);
+```
+
+### 1. Immutability
+The `Book` class is immutable, it has`final` class, `final` fields, andno setters, which provides thread safety without synchronization and prevention of accidental modification.
+
+### 2. Defensive Programming
+The defensive copies returned from all collection getters, it made sure that the editing will not destroy the original collective.
+
+### 3. ISBN as Identity
+Books use ISBN to check each book's uniqueness, which makes sure that each Book object can found without errors.
+
+## Testing Strategy
 
 ### Coverage Statistics
 - **Overall Coverage**: 97% (exceeds 85% target)

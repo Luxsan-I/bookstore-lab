@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package src.test.java.com.university.bookstore.impl;
+package com.university.bookstore.impl;
 
 class BookstoreArrayListTest {
     private BookstoreArrayList bookstore;

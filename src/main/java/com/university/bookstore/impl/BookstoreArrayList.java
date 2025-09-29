@@ -12,8 +12,15 @@ import java.util.stream.Collectors;
 import com.university.bookstore.model.Book;
 
 /**
- * ArrayList-based implementation of a bookstore.
- * Stores Book objects in a list and enforces unique ISBNs.
+ * ArrayList-based implementation of the BookstoreAPI.
+ *
+ * <p>This implementation uses an ArrayList for storage and enforces
+ * ISBN uniqueness. All collection returns are defensive copies to
+ * maintain encapsulation.</p>
+ *
+ * Luxsan Indran
+ * Id: 221298286
+ * Date: September 18-20 2025
  */
 public class BookstoreArrayList {
 

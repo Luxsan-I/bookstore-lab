@@ -78,16 +78,13 @@ The project includes a comprehensive build script (`runme.sh`) that:
 ```java
 BookstoreAPI book_store = new BookstoreArrayList();
 
-Book harry_porter = new Book("9780134685991", "Harry Porter", 
-                              "JK R", 69.99, 2018);
-book_store.add(harry_porter);
+Book bookx = new Book("9781402894626", "Book X" "Author X", 78.93, 2025);
+book_store.add(bookx);
 
-// Search operations
-Book found = book_store.findByIsbn("9780134685991");
-List<Book> javaBooks = book_store.findByTitle("Porter");
-List<Book> affordable = book_store.findByPriceRange(0, 50.00);
+Book book_object = book_store.findByIsbn("9781402894626");
+List<Book> affordable = book_store.findByPriceRange(0, 100.00);
+List<Book> javaBooks = book_store.findByTitle("X");
 
-// Analytics
 double totalValue = book_store.inventoryValue();
 Book mostExpensive = book_store.getMostExpensive();
 ```

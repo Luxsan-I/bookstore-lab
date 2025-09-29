@@ -118,23 +118,6 @@ Book oldest = BookArrayUtils.findOldest(books);
 
 ## Design Decisions
 
-### Array Utilities
-```java
-Book[] books = store.snapshotArray();
-
-// Filter operations
-Book[] cheapBooks = BookArrayUtils.filterPriceAtMost(books, 30.0);
-Book[] recentBooks = BookArrayUtils.filterByDecade(books, 2020);
-
-// Sorting (in-place)
-BookArrayUtils.sortByPrice(books);
-BookArrayUtils.sortByYear(books);
-
-// Analytics
-double avgPrice = BookArrayUtils.averagePrice(books);
-Book oldest = BookArrayUtils.findOldest(books);
-```
-
 ### 1. Immutability
 The `Book` class is immutable, it has`final` class, `final` fields, andno setters, which provides thread safety without synchronization and prevention of accidental modification.
 

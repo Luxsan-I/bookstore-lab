@@ -1,13 +1,13 @@
 # Bookstore Management System
 
 ## Contact
-221331327, yuzhelin@gmail.com, Yuzhe, Lin
-
 221633680, abelb23@my.yorku.ca, Abel Berhanu
+
+221477393, ayanh@my.yorku.ca, Ayan Hasan
 
 221298296, luxsan@my.yorku.ca, Luxsan Indran
 
-221477393, ayanh@my.yorku.ca, Ayan Hasan
+221331327, yuzhelin@gmail.com, Yuzhe, Lin
 
 ## Project Overview
 
@@ -156,6 +156,5 @@ Books use ISBN to check each book's uniqueness, which makes sure that each Book 
 
 ### 3. Defensive Copying Importance
 
-**Defensive copying:**
-The defensive copy prevents modifying internal private properties of an objects, maintaining the encapsulation.
+**The defensive copy prevents modifying internal private properties of an objects, maintaining the encapsulation.**
 

@@ -201,10 +201,10 @@ public class BookstoreArrayList {
     }
 
     /**
-     * Sorts inventory by title.
+     * Sorts inventory by title (alphabetically).
      */
     public void sortByTitle() {
-        Collections.sort(inventory);
+        inventory.sort(Comparator.comparing(Book::getTitle));
     }
 
     /**

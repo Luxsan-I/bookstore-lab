@@ -9,14 +9,14 @@ This projects create a Bookstore Management System using software engineering pr
 
 ## Architecture
 ├──Model Layer (Book.java)
-│   |--Immutable object with validation
+│   └── Immutable object with validation
 ├── API Layer (BookstoreAPI.java)
-│   |-- Interface to Bookstore operations
+│   └── Interface to Bookstore operations
 ├── Implementation Layer
-│   |-- BookstoreArrayList.java - Impletement throught array list
-│   |-- BookArrayUtils.java - Impletement throught array
+│   └── BookstoreArrayList.java - Impletement throught array list
+│   └── BookArrayUtils.java - Impletement throught array
 ├── Test Layer
-│   |-- Junit 5 Test for objects
+│   └── IJunit 5 Test for objects
 
 ## Build Instructions
 

@@ -2,6 +2,7 @@
 
 ## Contact
 221331327, yuzhelin@gmail.com, Yuzhe, Lin
+221633680, abelb23@my.yorku.ca, Abel Berhanu
 
 ## Project Overview
 

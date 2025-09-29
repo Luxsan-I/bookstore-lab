@@ -70,27 +70,25 @@ The project includes a comprehensive build script (`runme.sh`) that:
 
 ### Basic Operations
 ```java
-// Create bookstore
-BookstoreAPI store = new BookstoreArrayList();
+BookstoreAPI book_store = new BookstoreArrayList();
 
-// Add books
-Book effectiveJava = new Book("9780134685991", "Effective Java", 
-                              "Joshua Bloch", 69.99, 2018);
-store.add(effectiveJava);
+Book harry_porter = new Book("9780134685991", "Harry Porter", 
+                              "JK R", 69.99, 2018);
+book_store.add(harry_porter);
 
 // Search operations
-Book found = store.findByIsbn("9780134685991");
-List<Book> javaBooks = store.findByTitle("Java");
-List<Book> affordable = store.findByPriceRange(0, 50.00);
+Book found = book_store.findByIsbn("9780134685991");
+List<Book> javaBooks = book_store.findByTitle("Porter");
+List<Book> affordable = book_store.findByPriceRange(0, 50.00);
 
 // Analytics
-double totalValue = store.inventoryValue();
-Book mostExpensive = store.getMostExpensive();
+double totalValue = book_store.inventoryValue();
+Book mostExpensive = book_store.getMostExpensive();
 ```
 
 ### Array Utilities
 ```java
-Book[] books = store.snapshotArray();
+Book[] books = book_store.snapshotArray();
 
 // Filter operations
 Book[] cheapBooks = BookArrayUtils.filterPriceAtMost(books, 30.0);

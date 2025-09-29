@@ -78,7 +78,17 @@ The project includes a comprehensive build script (`runme.sh`) that:
 | Find by Title | O(n) | O(n) | Full scan needed |
 | Get by Index | O(1) | O(1) | Direct access |
 | Size | O(1) | O(1) | Maintained/fixed |
+
 ## Design Decisions
+
+### 1. Immutability
+The `Book` class is immutable, it has`final` class, `final` fields, andno setters, which provides thread safety without synchronization and prevention of accidental modification.
+
+### 2. Defensive Programming
+The defensive copies returned from all collection getters, it made sure that the editing will not destroy the original collective.
+
+### 3. ISBN as Identity
+Books use ISBN to check each book's uniqueness, which makes sure that each Book object can found without errors.
 
 ## Testing Strategy
 

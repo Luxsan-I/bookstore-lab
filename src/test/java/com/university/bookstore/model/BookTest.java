@@ -115,7 +115,7 @@ class BookTest {
      */
     @ParameterizedTest
     @ValueSource(doubles = {-1.0, -50.0})
-    void testNegativePrice(double price) {
+    void testInvalidPriceValues(double price) {
         assertThrows(IllegalArgumentException.class, () ->
                 new Book("1234567890", "Title", "Author", price, 2020));
     }
@@ -124,7 +124,7 @@ class BookTest {
      * Tests invalid price edge cases.
      */
     @Test
-    void testInvalidPriceValues() {
+    void testNegativePrice() {
         assertThrows(IllegalArgumentException.class, () ->
                 new Book("1234567890", "Title", "Author", -0.01, 2020));
     }

@@ -7,7 +7,7 @@
 
 221298296, luxsan@my.yorku.ca, Luxsan Indran
 
-221331327, yuzhelin730@my.yorku.ca, Yuzhe, Lin
+221331327, yuzhelin@my.yorku.ca, Yuzhe, Lin
 
 ## Project Overview
 

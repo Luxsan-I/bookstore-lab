@@ -93,15 +93,15 @@ Book mostExpensive = book_store.getMostExpensive();
 ```java
 Book[] books = book_store.snapshotArray();
 
-// Filter operations
-Book[] cheapBooks = BookArrayUtils.filterPriceAtMost(books, 30.0);
-Book[] recentBooks = BookArrayUtils.filterByDecade(books, 2020);
+// Finding books based on their properties.
+Book[] cheapBooks = BookArrayUtils.filterPriceAtMost(books, 25.0);
+Book[] recentBooks = BookArrayUtils.filterByDecade(books, 2025);
 
-// Sorting (in-place)
+// Sorting books based on their properties.
 BookArrayUtils.sortByPrice(books);
 BookArrayUtils.sortByYear(books);
 
-// Analytics
+// Finding an exact book based on their properties.
 double avgPrice = BookArrayUtils.averagePrice(books);
 Book oldest = BookArrayUtils.findOldest(books);
 ```
